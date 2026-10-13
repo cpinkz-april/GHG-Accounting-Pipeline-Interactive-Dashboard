@@ -6,7 +6,7 @@ st.set_page_config(page_title="Thailand Scope 2 GHG Dashboard", layout="wide")
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv('dataset_11_37.csv')
+    df = pd.read_csv('dataset_electricity_usage.csv')
     df['Date'] = pd.to_datetime(df['Year'].astype(str) + '-' + df['Month'] + '-01')
     GRID_EF = 0.475  # kgCO2e/kWh
     df['Quantity_kWh'] = df['Quantity'] * 1_000_000
