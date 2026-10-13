@@ -8,7 +8,7 @@ st.set_page_config(page_title="Thailand Scope 2 GHG Dashboard", layout="wide")
 def load_data():
     df = pd.read_csv('dataset_electricity_usage.csv')
     df['Date'] = pd.to_datetime(df['Year'].astype(str) + '-' + df['Month'] + '-01')
-    GRID_EF = 0.475  # kgCO2e/kWh
+    GRID_EF = 0.475  
     df['Quantity_kWh'] = df['Quantity'] * 1_000_000
     df['Emissions_tCO2e'] = (df['Quantity_kWh'] * GRID_EF) / 1000
     df['Emissions_MtCO2e'] = df['Emissions_tCO2e'] / 1_000_000
@@ -55,7 +55,7 @@ with col_chart1:
 
 with col_chart2:
     st.subheader("📈 แนวโน้มการปล่อยก๊าซฯ รายเดือน")
-    # เรียงลำดับเดือนตามปฏิทิน
+    
     df_monthly = df_filtered.groupby(['Date', 'Month'])['Emissions_MtCO2e'].sum().reset_index()
     df_monthly = df_monthly.sort_values('Date')
     fig_bar = px.bar(
